@@ -26,6 +26,8 @@ module sys_top
 	input         FPGA_CLK2_50,
 	input         FPGA_CLK3_50,
 
+	output        clk_50m,
+
 	//////////// HDMI //////////
 	output        HDMI_I2C_SCL,
 	inout         HDMI_I2C_SDA,
@@ -154,7 +156,13 @@ wire led_u = ~led_user;
 wire led_locked;
 
 //LEDs on de10-nano board
+`ifdef MISTER_CHAMELEON96
+// Chameleon96: bits 1/3 carry the two RF LEDs (yellow=video-active,
+// blue=always-on) as active-high "1=lit" like bits 5/6, so UIO_LEDS overrides them.
+assign LED = (led_overtake & led_state) | (~led_overtake & {1'b0, led_locked, 1'b0, ~led_p, 1'b1, ~led_d, HDMI_TX_DE, ~led_u});
+`else
 assign LED = (led_overtake & led_state) | (~led_overtake & {1'b0,led_locked,1'b0, ~led_p, 1'b0, ~led_d, 1'b0, ~led_u});
+`endif
 
 wire [2:0] mcp_btn;
 wire       mcp_sdcd;
@@ -607,6 +615,7 @@ sysmem_lite sysmem
 	.reset_core_req(reset_req),
 	.reset_out(reset),
 	.clock(clk_100m),
+	.clk_50m(clk_50m),
 
 	//DE10-nano has no reset signal on GPIO, so core has to emulate cold reset button.
 	.reset_hps_cold_req(btn_r),
@@ -713,7 +722,7 @@ wire         bob_deint;
 
 	ascal 
 	#(
-		.RAMBASE(32'h20000000),
+		.RAMBASE(32'h1E800000),
 	`ifdef MISTER_SMALL_VBUF
 		.RAMSIZE(32'h00200000),
 	`else
@@ -1180,7 +1189,7 @@ cyclonev_hps_interface_peripheral_i2c hdmi_i2c
 	wire [23:0] hdmi_data_osd;
 	wire        hdmi_de_osd, hdmi_vs_osd, hdmi_hs_osd;
 
-	osd hdmi_osd
+	osd #(.OSD_COLOR(1)) hdmi_osd
 	(
 		.clk_sys(clk_sys),
 

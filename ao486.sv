@@ -571,7 +571,7 @@ assign VIDEO_ARY = fb_en ? fb_ary : ary;
 
 ////////////////////////////////////////////////////////////////////////
 
-assign DDRAM_ADDR[28:25] = 4'h3;
+assign DDRAM_ADDR[28:25] = 4'h1;
 
 system system
 (
