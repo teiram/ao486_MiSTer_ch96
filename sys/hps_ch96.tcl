@@ -12,3 +12,4 @@ set_instance_assignment -name HPS_LOCATION HPSINTERFACEPERIPHERALI2C_X52_Y60_N11
 
 set_global_assignment -name PRE_FLOW_SCRIPT_FILE "quartus_sh:sys/build_id.tcl"
 set_global_assignment -name QIP_FILE sys/sys.qip
+set_global_assignment -name SYSTEMVERILOG_FILE sys/ch96_top.sv
