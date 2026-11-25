@@ -21,7 +21,7 @@
 
 module emu
 (
-	`include "sys/emu_ports.vh"
+	`include "template/sys/emu_ports.vh"
 );
 
 //`define DEBUG

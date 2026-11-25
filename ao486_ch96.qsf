@@ -55,96 +55,13 @@ set_global_assignment -name ROUTER_REGISTER_DUPLICATION ON
 set_global_assignment -name FITTER_AGGRESSIVE_ROUTABILITY_OPTIMIZATION ALWAYS
 set_global_assignment -name SEED 1
 
-
+set_global_assignment -name TOP_LEVEL_ENTITY ch96_top
 set_global_assignment -name SDC_FILE ao486_ch96.sdc
-
-set_global_assignment -name VERILOG_MACRO "MISTER_DISABLE_ALSA=1"
 set_global_assignment -name VERILOG_MACRO "MISTER_FB=1"
 set_global_assignment -name VERILOG_MACRO "MISTER_FB_PALETTE=1"
 
-source sys/pins_ch96.tcl
-set_location_assignment PIN_AA6 -to LCD_R[4]
-set_location_assignment PIN_AA7 -to LCD_R[3]
-set_location_assignment PIN_AB7 -to LCD_R[2]
-set_location_assignment PIN_Y5 -to LCD_R[1]
-set_location_assignment PIN_W6 -to LCD_R[0]
-set_location_assignment PIN_Y11 -to LCD_G[5]
-set_location_assignment PIN_AB9 -to LCD_G[4]
-set_location_assignment PIN_AB8 -to LCD_G[3]
-set_location_assignment PIN_AA8 -to LCD_G[2]
-set_location_assignment PIN_AA5 -to LCD_G[1]
-set_location_assignment PIN_AB5 -to LCD_G[0]
-set_location_assignment PIN_U6 -to LCD_B[4]
-set_location_assignment PIN_V5 -to LCD_B[3]
-set_location_assignment PIN_V6 -to LCD_B[2]
-set_location_assignment PIN_W7 -to LCD_B[1]
-set_location_assignment PIN_W8 -to LCD_B[0]
-set_location_assignment PIN_Y8 -to LCD_DE
-set_location_assignment PIN_V10 -to LCD_HSYNC
-set_location_assignment PIN_V7 -to LCD_VSYNC
-set_location_assignment PIN_AB10 -to LCD_PIXEL_CLK
-set_location_assignment PIN_V11 -to I2S_MCLK
-set_location_assignment PIN_W11 -to I2S_TXC
-set_location_assignment PIN_AA11 -to I2S_TXD
-set_location_assignment PIN_V9 -to I2S_TXFS
-set_location_assignment PIN_U7 -to I2C2_SCL
-set_location_assignment PIN_U10 -to I2C2_SDA
-set_location_assignment PIN_Y19 -to LED_YELLOW
-set_location_assignment PIN_Y20 -to LED_BLUE
-set_instance_assignment -name IO_STANDARD "1.8 V" -to LCD_R[*]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to LCD_G[*]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to LCD_B[*]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to LCD_DE
-set_instance_assignment -name IO_STANDARD "1.8 V" -to LCD_HSYNC
-set_instance_assignment -name IO_STANDARD "1.8 V" -to LCD_VSYNC
-set_instance_assignment -name IO_STANDARD "1.8 V" -to LCD_PIXEL_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to I2S_MCLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to I2S_TXC
-set_instance_assignment -name IO_STANDARD "1.8 V" -to I2S_TXD
-set_instance_assignment -name IO_STANDARD "1.8 V" -to I2S_TXFS
-set_instance_assignment -name IO_STANDARD "1.8 V" -to I2C2_SCL
-set_instance_assignment -name IO_STANDARD "1.8 V" -to I2C2_SDA
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to I2C2_SCL
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to I2C2_SDA
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to LCD_PIXEL_CLK
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to LCD_R[*]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to LCD_G[*]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to LCD_B[*]
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to LCD_DE
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to LCD_HSYNC
-set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to LCD_VSYNC
-source sys/hps_ch96.tcl
-set_hps_location_assignment HPSINTERFACEPERIPHERALUART_X52_Y67_N111 -to uart -entity sys_top
-set_hps_location_assignment HPSINTERFACEPERIPHERALI2C_X52_Y60_N111 -to hdmi_i2c -entity sys_top
-set_global_assignment -name PRE_FLOW_SCRIPT_FILE "quartus_sh:sys/build_id.tcl"
-set_global_assignment -name QIP_FILE sys/sys.qip
+source template/sys/pins_ch96.tcl
+source template/sys/hps_ch96.tcl
 source files.qip
-set_global_assignment -name SEARCH_PATH ./rtl/ao486
-set_global_assignment -name QIP_FILE rtl/pll2.qip
-set_global_assignment -name QIP_FILE rtl/ao486/ao486.qip
-set_global_assignment -name QIP_FILE rtl/cache/cache.qip
-set_global_assignment -name QIP_FILE rtl/soc/uart/uart.qip
-set_global_assignment -name QIP_FILE rtl/soc/sound/sound.qip
-set_global_assignment -name QIP_FILE rtl/soc/gus/gus.qip
-set_global_assignment -name QIP_FILE rtl/common/common.qip
-set_global_assignment -name VERILOG_FILE rtl/soc/iobus.v
-set_global_assignment -name VERILOG_FILE rtl/soc/floppy.v
-set_global_assignment -name VERILOG_FILE rtl/soc/ide.v
-set_global_assignment -name VERILOG_FILE rtl/soc/cdda.v
-set_global_assignment -name VERILOG_FILE rtl/soc/joystick.v
-set_global_assignment -name VERILOG_FILE rtl/soc/dma.v
-set_global_assignment -name VERILOG_FILE rtl/soc/pic.v
-set_global_assignment -name VERILOG_FILE rtl/soc/pit.v
-set_global_assignment -name VERILOG_FILE rtl/soc/pit_counter.v
-set_global_assignment -name VERILOG_FILE rtl/soc/ps2.v
-set_global_assignment -name VERILOG_FILE rtl/soc/rtc.v
-set_global_assignment -name VERILOG_FILE rtl/soc/vga.v
-set_global_assignment -name VERILOG_FILE rtl/system.v
-set_global_assignment -name VERILOG_FILE rtl/hps_ext.v
-set_global_assignment -name SYSTEMVERILOG_FILE ao486.sv
 
-
-set_global_assignment -name ALM_REGISTER_PACKING_EFFORT MEDIUM
-set_global_assignment -name SDC_FILE ao486.sdc
-set_global_assignment -name TOP_LEVEL_ENTITY ch96_top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
