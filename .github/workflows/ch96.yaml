@@ -1,0 +1,19 @@
+name: ch96
+
+on:
+  schedule:
+    - cron: '41 3 * * *'          #  Every night at 3:41 (GMT)
+  workflow_dispatch:              # Actions > ch96 > Run workflow
+  push:
+    branches: [master]
+    paths-ignore: ['releases/**', '**.md', 'docs/**']
+
+permissions:
+  contents: write
+
+jobs:
+  ch96:
+    uses: teiram/Template_MiSTer_ch96/.github/workflows/ch96-core.yml@master
+    with:
+      revision: ao486_ch96          # .qsf to build (without extension)
+      core: ao486                   # -> releases/ao486_AAAAMMDD_ch96.rbf
